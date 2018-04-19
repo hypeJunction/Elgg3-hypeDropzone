@@ -2,6 +2,8 @@ define(function (require) {
 
 	var elgg = require('elgg');
 	var $ = require('jquery');
+	var Ajax = require('elgg/Ajax');
+
 	require('dropzone/lib');
 
 	var dz = {
@@ -35,14 +37,13 @@ define(function (require) {
 		config: function (hook, type, params, config) {
 
 			var defaults = {
-				url: elgg.security.addToken(elgg.get_site_url() + 'action/dropzone/upload'),
 				method: 'POST',
 				headers: {
-					'X-Requested-With': 'XMLHttpRequest'
+					'X-Requested-With': 'XMLHttpRequest',
+					'X-Elgg-AJAX-Api': '2'
 				},
 				parallelUploads: 10,
 				paramName: 'dropzone',
-				uploadMultiple: true,
 				createImageThumbnails: true,
 				thumbnailWidth: 200,
 				thumbnailHeight: 200,
@@ -51,7 +52,6 @@ define(function (require) {
 				dictRemoveFile: "&times;",
 				previewTemplate: params.dropzone.closest('.elgg-dropzone').find('[data-template]').children()[0].outerHTML,
 				fallback: dz.fallback,
-				//autoProcessQueue: false,
 				init: function () {
 					if (this.options.uploadMultiple) {
 						this.on('successmultiple', dz.success);
@@ -60,10 +60,59 @@ define(function (require) {
 					}
 					this.on('removedfile', dz.removedfile);
 				}
-				//forceFallback: true
 			};
 
-			return $.extend(true, defaults, config);
+			config = $.extend(true, defaults, config);
+
+			if (!config.url) {
+				config.url = elgg.security.addToken(elgg.get_site_url() + 'action/dropzone/upload_chunk');
+				config.chunking = true;
+				config.forceChunking = true;
+				config.parallelChunkUploads = true;
+				config.chunkSize = 1024 * 1024;
+				config.retryChunks = true;
+				config.params = function (files, xhr, chunk) {
+					return {
+						file_name: chunk.file.name,
+						file_last_modified: chunk.file.lastModified,
+						file_size: chunk.file.size,
+						chunk_size: chunk.dataBlock.data.size,
+						chunk_index: chunk.dataBlock.chunkIndex,
+						uuid: chunk.file.upload.uuid
+					}
+				};
+
+				config.chunksUploaded = function (file, done) {
+
+					var ajax = new Ajax(false);
+					var $input = $(this.element);
+					var query = this.query || {};
+
+					var queryData = $.extend({}, query, {
+						container_guid: this.containerGuid,
+						input_name: this.name,
+						subtype: this.subtype,
+						file_name: file.name,
+						file_last_modified: file.lastModified,
+						file_size: file.size,
+						chunk_count: file.upload.totalChunkCount,
+						uuid: file.upload.uuid
+					});
+
+					return ajax.action('dropzone/assemble_chunks', {
+						data: queryData
+					}).done(function (data) {
+						dz.handleSuccess(file, data);
+						done();
+					});
+				};
+
+				config.uploadMultiple = false;
+			} else {
+				config.uploadMultiple = true;
+			}
+
+			return config;
 		},
 		/**
 		 * Callback function for 'initialize', 'init', 'ready' event
@@ -80,15 +129,18 @@ define(function (require) {
 
 			var params = elgg.trigger_hook('config', 'dropzone', {dropzone: $input}, $input.data());
 
+			var query = $input.data('query') || {};
+
 			//These will be sent as a URL query and will be available in the action
-			var queryData = {
+			var queryData = $.extend({}, query, {
 				container_guid: $input.data('containerGuid'),
 				input_name: $input.data('name'),
 				subtype: $input.data('subtype')
-			};
+			});
 
 			var parts = elgg.parse_url(params.url),
-					args = {}, base = '';
+				args = {}, base = '';
+
 			if (typeof parts['host'] === 'undefined') {
 				if (params.url.indexOf('?') === 0) {
 					base = '?';
@@ -152,13 +204,29 @@ define(function (require) {
 		 */
 		success: function (files, data) {
 
+			if (!data) {
+				return;
+			}
+
+			dz.handleSuccess(files, data.value);
+		},
+		/**
+		 * Files have been successfully uploaded
+		 * @param {Array} files
+		 * @param {Object} data
+		 * @returns {void}
+		 */
+		handleSuccess: function (files, data) {
 			if (!$.isArray(files)) {
 				files = [files];
 			}
+
 			$.each(files, function (index, file) {
 				var preview = file.previewElement;
-				if (data && data.output) {
-					var filedata = data.output[index];
+
+				if (data) {
+					var filedata = data[index];
+
 					if (filedata.success) {
 						$(preview).addClass('elgg-dropzone-success').removeClass('elgg-dropzone-error');
 					} else {
@@ -171,14 +239,13 @@ define(function (require) {
 						$(preview).attr('data-guid', filedata.guid);
 					}
 					if (filedata.messages.length) {
-						if (data.output && data.output.success) {
-							$(preview).find('.elgg-dropzone-messages').html(data.output.messages.join('<br />'));
-						}
+						$(preview).find('.elgg-dropzone-messages').html(filedata.messages.join('<br />'));
 					}
 				} else {
 					$(preview).addClass('elgg-dropzone-error').removeClass('elgg-dropzone-success');
 					$(preview).find('.elgg-dropzone-messages').html(elgg.echo('dropzone:server_side_error'));
 				}
+
 				elgg.trigger_hook('upload:success', 'dropzone', {file: file, data: data});
 			});
 		},
@@ -193,7 +260,7 @@ define(function (require) {
 			var guid = $(preview).data('guid');
 
 			if (guid) {
-				elgg.action('action/file/delete', {
+				elgg.action('action/entity/delete', {
 					data: {
 						guid: guid
 					}

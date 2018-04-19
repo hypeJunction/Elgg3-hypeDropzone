@@ -11,6 +11,7 @@
  * @uses $vars['action'] Alternative elgg action to handle temporary file uploads. Defaults to 'action/dropzone/upload'
  * @uses $vars['container_guid'] GUID of the container entity to which new files should be uploaded
  * @uses $vars['subtype'] Subtype of the file to be created
+ * @uses $vars['query'] Additional data to pass with the request
  */
 $uid = substr(md5(microtime() . rand()), 0, 10);
 $options['id'] = "dropzone-$uid";
@@ -35,10 +36,12 @@ $multiple = false;
 if (isset($vars['multiple'])) {
 	$multiple = $vars['multiple'];
 }
+
 $options['data-upload-multiple'] = $multiple;
 if ($multiple) {
 	$vars['name'] = $vars['name'] . '[]';
 }
+
 $options['data-name'] = $vars['name'];
 
 // Set input type
@@ -61,6 +64,8 @@ if (isset($vars['accept'])) {
 if (isset($vars['action'])) {
 	$options['data-url'] = elgg_add_action_tokens_to_url(elgg_normalize_url($vars['action']));
 	unset($vars['action']);
+} else if (!elgg_get_plugin_setting('chunked_uploads', 'hypeDropzone')) {
+	$options['data-url'] = elgg_add_action_tokens_to_url(elgg_generate_action_url('dropzone/upload'));
 }
 
 if (isset($vars['container_guid'])) {
@@ -71,9 +76,15 @@ if (isset($vars['subtype'])) {
 	$options['data-subtype'] = $vars['subtype'];
 }
 
+$query = elgg_extract('query', $vars);
+unset($vars['query']);
+if ($query) {
+	$options['data-query'] = json_encode($query);
+}
+
 $options['data-clickable'] = "#{$options['id']} .elgg-dropzone-fallback-control,#{$options['id']} .elgg-dropzone-instructions";
 
-$language = array(
+$language = [
 	'data-dict-default-message' => elgg_echo('dropzone:default_message'),
 	'data-dict-fallback-message' => elgg_echo('dropzone:fallback_message'),
 	'data-dict-fallback-text' => elgg_echo('dropzone:fallback_text'),
@@ -84,7 +95,7 @@ $language = array(
 	'data-dict-cancel-upload-confirmation' => elgg_echo('dropzone:cancel_upload_confirmation'),
 	'data-dict-remove-file' => elgg_echo('dropzone:remove_file'),
 	'data-dict-max-files-exceeded' => elgg_echo('dropzone:max_files_exceeded')
-);
+];
 
 $options = array_merge($language, $options);
 
@@ -93,20 +104,24 @@ $dropzone_attributes = elgg_format_attributes($options);
 <div class="elgg-dropzone">
 	<?=
 	// Add a hidden field to use in the action hook to unserialize the values
-	elgg_view('input/hidden', array(
+	elgg_view('input/hidden', [
 		'name' => 'dropzone_fields[]',
 		'value' => $vars['name']
-	));
+	]);
 	?>
-	<div <?= $dropzone_attributes ?>>
+    <div <?= $dropzone_attributes ?>>
 		<span class="elgg-dropzone-instructions dz-default dz-message">
-			<?= elgg_view_icon('cloud-upload') ?>
-			<?= $language['data-dict-default-message'] ?>
+            <?= $language['data-dict-default-message'] ?>
 		</span>
-	</div>
-	<div data-template><?= elgg_view('dropzone/template') ?></div>
+    </div>
+    <div data-template><?= elgg_view('dropzone/template') ?></div>
 </div>
-<?= elgg_view('input/file', $vars) ?>
+<?php
+$params = $vars;
+unset($params['value']);
+
+echo elgg_view('input/file', $params);
+?>
 <script>
 	require(['dropzone/dropzone'], function (dropzone) {
 		dropzone.init();

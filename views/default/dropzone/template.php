@@ -1,4 +1,4 @@
-<div class="elgg-dropzone-preview">
+<div class="elgg-dropzone-preview dz-preview dz-file-preview">
 	<div class="elgg-dropzone-item-props">
 		 <div class="elgg-dropzone-thumbnail">
 			<img data-dz-thumbnail />

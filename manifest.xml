@@ -3,7 +3,7 @@
 
 	<name>hypeDropzone</name>
 	<id>hypeDropzone</id>
-	<version type="dist">5.0.1</version>
+	<version type="dist">6.0.0</version>
 
 	<description>Drag and Drop File Uploads</description>
 	<category>files</category>
@@ -22,9 +22,15 @@
 		<type>plugin</type>
 		<name>dropzone</name>
 	</provides>
+
 	<provides>
 		<type>plugin</type>
 		<name>elgg_dropzone</name>
 	</provides>
+
+    <suggests>
+        <type>plugin</type>
+        <name>hypeShutdown</name>
+    </suggests>
 
 </plugin_manifest>

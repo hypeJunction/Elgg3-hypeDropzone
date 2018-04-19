@@ -1,3 +1,13 @@
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/hypeJunction/hypeDropzone/compare/5.0.1...6.0.0) (2018-04-03)
+
+
+### Features
+
+* **releases:** upgrade for Elgg 3.0 ([6a7c5f2](https://github.com/hypeJunction/hypeDropzone/commit/6a7c5f2))
+
+
+
 <a name="5.0.1"></a>
 ## [5.0.1](https://github.com/hypeJunction/hypeDropzone/compare/5.0.0...v5.0.1) (2016-08-30)
 

@@ -14,7 +14,7 @@ if (file_exists("$plugin_root/vendor/autoload.php")) {
 
 return [
 	'default' => [
-		'dropzone/lib.js' => $path . '/vendor/bower-asset/dropzone/dist/min/dropzone-amd-module.min.js',
+		'dropzone/lib.js' => $path . '/vendor/npm-asset/dropzone/dist/min/dropzone-amd-module.min.js',
 		'css/dropzone/stylesheet' => __DIR__ . '/views/default/dropzone/dropzone.css',
 	],
 ];

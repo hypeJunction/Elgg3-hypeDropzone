@@ -1,6 +1,6 @@
 Drag&Drop File Uploads for Elgg
 ===============================
-![Elgg 2.2](https://img.shields.io/badge/Elgg-2.2.x-orange.svg?style=flat-square)
+![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
 
 Drag&Drop File Uploads for Elgg
 
@@ -8,6 +8,7 @@ Drag&Drop File Uploads for Elgg
 
 * Cross-browser support for drag&drop file uploads
 * Easy to integrate into existing forms
+* Supports chunked uploads of large files
 
 ![Dropzone](https://raw.github.com/hypeJunction/hypeDropzone/master/screenshots/dropzone.png "Dropzone")
 
