@@ -1,3 +1,13 @@
+<a name="7.0.0"></a>
+# [7.0.0](https://github.com/hypeJunction/hypeDropzone/compare/6.0.0...7.0.0) (2018-04-19)
+
+
+### Features
+
+* **releases:** upgrade for Elgg 3.0 ([ddc6099](https://github.com/hypeJunction/hypeDropzone/commit/ddc6099))
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/hypeJunction/hypeDropzone/compare/5.0.1...6.0.0) (2018-04-03)
 
