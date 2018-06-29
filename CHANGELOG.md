@@ -1,3 +1,18 @@
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/hypeJunction/hypeDropzone/compare/6.0.0...6.1.0) (2018-06-29)
+
+
+### Bug Fixes
+
+* **views:** move view definitions to elgg-plugin ([41fa125](https://github.com/hypeJunction/hypeDropzone/commit/41fa125))
+
+
+### Features
+
+* **core:** updates and fixes ([543ae82](https://github.com/hypeJunction/hypeDropzone/commit/543ae82))
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/hypeJunction/hypeDropzone/compare/5.0.1...6.0.0) (2018-04-19)
 
