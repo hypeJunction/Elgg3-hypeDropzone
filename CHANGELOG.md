@@ -1,3 +1,13 @@
+<a name="6.1.1"></a>
+## [6.1.1](https://github.com/hypeJunction/hypeDropzone/compare/6.1.0...6.1.1) (2018-07-09)
+
+
+### Bug Fixes
+
+* **assets:** exclude broken dropzone build ([52c8810](https://github.com/hypeJunction/hypeDropzone/commit/52c8810))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/hypeJunction/hypeDropzone/compare/6.0.0...6.1.0) (2018-06-29)
 

@@ -1,6 +1,6 @@
 {
     "name": "hypejunction/hypedropzone",
-    "version": "6.1.0",
+    "version": "6.1.1",
     "type": "elgg-plugin",
     "description": "Drag-n-drop file uploads for Elgg",
     "homepage": "http://hypejunction.com",
