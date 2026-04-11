@@ -2,9 +2,9 @@
 
 namespace hypeJunction\Dropzone;
 
-use Elgg\BadRequestException;
+use Elgg\Exceptions\Http\BadRequestException;
 use Elgg\Http\ResponseBuilder;
-use Elgg\HttpException;
+use Elgg\Exceptions\HttpException;
 use Elgg\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
