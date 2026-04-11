@@ -40,5 +40,13 @@ return [
 			'dropzone/lib.js' => $path . '/vendor/npm-asset/dropzone/dist/min/dropzone-amd-module.min.js',
 			'css/dropzone/stylesheet' => __DIR__ . '/views/default/dropzone/dropzone.css',
 		],
-	]
+	],
+	'view_extensions' => [
+		'elgg.css' => [
+			'css/dropzone/stylesheet' => [],
+		],
+		'admin.css' => [
+			'css/dropzone/stylesheet' => [],
+		],
+	],
 ];
