@@ -1,5 +1,5 @@
 <?php
 
 return [
-	'dropzone' => \DI\object(\hypeJunction\DropzoneService::class),
+	'dropzone' => \DI\create(\hypeJunction\DropzoneService::class),
 ];
