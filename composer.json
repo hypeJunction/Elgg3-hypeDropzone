@@ -1,6 +1,6 @@
 {
     "name": "hypejunction/hypedropzone",
-    "version": "6.1.1",
+    "version": "7.0.0",
     "type": "elgg-plugin",
     "description": "Drag-n-drop file uploads for Elgg",
     "homepage": "http://hypejunction.com",
@@ -18,22 +18,24 @@
             "email": "info@hypejunction.com"
         }
     ],
-    "extra": {
-        "installer-name": "hypeDropzone"
-    },
     "require": {
-        "php": ">=5.5",
-        "composer/installers": "~1.0",
+        "php": ">=7.4",
+        "composer/installers": "^2.0",
         "npm-asset/dropzone": "<=5.4.0 || >5.5.0"
     },
     "autoload": {
-        "psr-0": {
-            "": "classes/"
+        "psr-4": {
+            "hypeJunction\\": "classes/hypeJunction/"
+        }
+    },
+    "extra": {
+        "elgg-plugin": {
+            "id": "hypedropzone"
         }
     },
     "config": {
-        "fxp-asset": {
-            "enabled": false
+        "allow-plugins": {
+            "composer/installers": true
         }
     },
     "repositories": [
