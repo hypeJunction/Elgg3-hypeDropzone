@@ -10,14 +10,14 @@ use Elgg\IntegrationTestCase;
 class PluginRegistrationTest extends IntegrationTestCase {
 
     public function getPluginID(): string {
-        return 'hypeDropzone';
+        return 'hypedropzone';
     }
 
     public function up() {}
     public function down() {}
 
     public function testPluginIsActive(): void {
-        $plugin = elgg_get_plugin_from_id('hypeDropzone');
+        $plugin = elgg_get_plugin_from_id('hypedropzone');
         $this->assertNotNull($plugin);
         $this->assertTrue($plugin->isActive());
     }
@@ -44,7 +44,7 @@ class PluginRegistrationTest extends IntegrationTestCase {
 
     public function testChunkedUploadsSettingDefault(): void {
         // default setting from elgg-plugin.php is true
-        $value = elgg_get_plugin_setting('chunked_uploads', 'hypeDropzone');
+        $value = elgg_get_plugin_setting('chunked_uploads', 'hypedropzone');
         $this->assertNotNull($value);
     }
 

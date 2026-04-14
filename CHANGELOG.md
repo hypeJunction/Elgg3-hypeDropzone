@@ -1,3 +1,17 @@
+<a name="7.0.0"></a>
+## 7.0.0 (2026-04-14)
+
+### Elgg 4.x migration
+
+* Migrated plugin to Elgg 4.x (from 3.x). Target PHP >= 7.4.
+* `manifest.xml` removed — `composer.json` is the sole metadata source.
+* Plugin directory name now lowercase (`hypedropzone`) per Iron Law 6.
+* PSR-0 autoload converted to PSR-4.
+* `input/dropzone.php` migrated from removed `elgg_format_attributes()` to `_elgg_services()->html_formatter->formatAttributes()`.
+* Per-plugin docker stack installs the plugin's own composer deps (npm-asset/dropzone) before activation so the `dropzone/lib.js` view resolves.
+* PHPUnit integration suite (35 tests) and Playwright suite (9 tests) adapted to 4.x: lowercase plugin ids, `\Elgg\Request` construction, `ELGG_IGNORE_ACCESS` for chunk persistence, form.elgg-form-login `.last()` for login flow, `maxRedirects: 0` on unauth action probes.
+* `ARCHITECTURE.md` added.
+
 <a name="6.1.1"></a>
 ## [6.1.1](https://github.com/hypeJunction/hypeDropzone/compare/6.1.0...6.1.1) (2018-07-09)
 

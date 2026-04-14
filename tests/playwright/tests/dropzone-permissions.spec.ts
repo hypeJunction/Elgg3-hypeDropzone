@@ -12,6 +12,7 @@ test.describe('hypeDropzone permissions', () => {
     const response = await page.request.post('/action/dropzone/upload', {
       multipart: {} as any,
       failOnStatusCode: false,
+      maxRedirects: 0,
     });
     // Elgg redirects unauthenticated users to /login (302/303) or returns 403
     expect([302, 303, 403, 401, 400]).toContain(response.status());
@@ -21,6 +22,7 @@ test.describe('hypeDropzone permissions', () => {
     const response = await page.request.post('/action/dropzone/upload_chunk', {
       multipart: {} as any,
       failOnStatusCode: false,
+      maxRedirects: 0,
     });
     expect([302, 303, 403, 401, 400]).toContain(response.status());
   });
@@ -29,6 +31,7 @@ test.describe('hypeDropzone permissions', () => {
     const response = await page.request.post('/action/dropzone/assemble_chunks', {
       multipart: {} as any,
       failOnStatusCode: false,
+      maxRedirects: 0,
     });
     expect([302, 303, 403, 401, 400]).toContain(response.status());
   });

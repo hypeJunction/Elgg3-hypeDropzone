@@ -9,4 +9,8 @@ robots.txt
 /vendor/
 /mod/
 composer.lock
-Gemfile.lockdocker/.env
+Gemfile.lock
+tests/playwright/node_modules/
+tests/playwright/test-results/
+tests/playwright/package-lock.json
+tests/.phpunit.result.cache

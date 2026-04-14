@@ -11,9 +11,13 @@ const DB_CONFIG = {
 
 export async function loginAs(page: Page, username: string, password: string = 'testpass123') {
   await page.goto('/login');
-  await page.fill('input[name="username"]', username);
-  await page.fill('input[name="password"]', password);
-  await page.click('button[type="submit"]');
+  // The 4.x default theme renders the login form twice — once in the page
+  // body and once in a hidden topbar dropdown. A bare locator would match
+  // both and trip strict-mode; scope to the body form with .last().
+  const form = page.locator('form.elgg-form-login').last();
+  await form.locator('input[name="username"]').fill(username);
+  await form.locator('input[name="password"]').fill(password);
+  await form.locator('button[type="submit"]').click();
   await page.waitForURL(/\//);
 }
 

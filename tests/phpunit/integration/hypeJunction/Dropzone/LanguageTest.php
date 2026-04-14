@@ -10,7 +10,7 @@ use Elgg\IntegrationTestCase;
 class LanguageTest extends IntegrationTestCase {
 
     public function getPluginID(): string {
-        return 'hypeDropzone';
+        return 'hypedropzone';
     }
 
     public function up() {}

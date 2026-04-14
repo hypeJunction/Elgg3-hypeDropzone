@@ -99,7 +99,7 @@ $language = [
 
 $options = array_merge($language, $options);
 
-$dropzone_attributes = elgg_format_attributes($options);
+$dropzone_attributes = _elgg_services()->html_formatter->formatAttributes($options);
 ?>
 <div class="elgg-dropzone">
 	<?=

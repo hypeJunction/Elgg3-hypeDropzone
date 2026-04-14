@@ -86,6 +86,14 @@ SETTINGS_VALUES
         echo 'Elgg 4.x installed successfully.' . PHP_EOL;
     " 2>&1 || echo "Install completed (check for errors above)."
 
+    # Install plugin-local composer deps if the plugin declares a composer.json
+    # with a require section and hasn't been installed yet. This makes runtime
+    # views that reference paths under mod/<plugin>/vendor/ resolvable.
+    if [ -f "/var/www/html/mod/${PLUGIN_ID}/composer.json" ] && [ ! -d "/var/www/html/mod/${PLUGIN_ID}/vendor" ]; then
+        echo "Installing plugin composer deps for ${PLUGIN_ID}..."
+        (cd "/var/www/html/mod/${PLUGIN_ID}" && composer install --no-interaction --prefer-dist --no-dev 2>&1 | tail -10) || echo "Plugin composer install completed (check for errors above)."
+    fi
+
     echo "Activating plugins..."
     php -r "
         require_once 'vendor/autoload.php';

@@ -10,7 +10,7 @@ use Elgg\IntegrationTestCase;
 class FileChunkTest extends IntegrationTestCase {
 
     public function getPluginID(): string {
-        return 'hypeDropzone';
+        return 'hypedropzone';
     }
 
     public function up() {}
@@ -37,20 +37,26 @@ class FileChunkTest extends IntegrationTestCase {
 
     public function testFileChunkPersists(): void {
         $user = $this->createUser();
-        $chunk = new FileChunk();
-        $chunk->owner_guid = $user->guid;
-        $chunk->container_guid = $user->guid;
-        $chunk->access_id = ACCESS_PRIVATE;
-        $chunk->setFilename('chunks/test-uuid/0');
-        $chunk->open('write');
-        $chunk->close();
-        $this->assertTrue($chunk->save() !== false);
+        // Chunks are saved by the upload pipeline under ignore-access because
+        // the receiving side may not have the same auth context as the owner.
+        // The test mirrors that.
+        $chunk = elgg_call(ELGG_IGNORE_ACCESS, function () use ($user) {
+            $c = new FileChunk();
+            $c->owner_guid = $user->guid;
+            $c->container_guid = $user->guid;
+            $c->access_id = ACCESS_PRIVATE;
+            $c->setFilename('chunks/test-uuid/0');
+            $c->open('write');
+            $c->close();
+            $this->assertTrue($c->save() !== false);
+            return $c;
+        });
 
-        $loaded = get_entity($chunk->guid);
+        $loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($chunk->guid));
         $this->assertInstanceOf(FileChunk::class, $loaded);
         $this->assertEquals('file_chunk', $loaded->getSubtype());
 
-        $chunk->delete();
+        elgg_call(ELGG_IGNORE_ACCESS, fn() => $chunk->delete());
     }
 
     public function testFileChunkCanSetAndRetrieveFilename(): void {

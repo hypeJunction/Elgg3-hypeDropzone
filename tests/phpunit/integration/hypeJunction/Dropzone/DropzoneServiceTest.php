@@ -11,7 +11,7 @@ use hypeJunction\DropzoneService;
 class DropzoneServiceTest extends IntegrationTestCase {
 
     public function getPluginID(): string {
-        return 'hypeDropzone';
+        return 'hypedropzone';
     }
 
     public function up() {}
@@ -33,8 +33,9 @@ class DropzoneServiceTest extends IntegrationTestCase {
 
         $svc = new DropzoneService();
 
-        // Build a Request with no uploaded files
-        $request = \Elgg\Request::createFromGlobals();
+        // Build a Request with no uploaded files. Elgg\Request wraps
+        // Elgg\Http\Request (a Symfony Request subclass) — construct both.
+        $request = new \Elgg\Request(elgg(), \Elgg\Http\Request::createFromGlobals());
 
         $result = $svc->handleUploads($request);
         $this->assertIsArray($result);
