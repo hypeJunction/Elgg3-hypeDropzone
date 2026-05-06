@@ -9,6 +9,9 @@ use Elgg\IntegrationTestCase;
  */
 class FileChunkTest extends IntegrationTestCase {
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return 'hypedropzone';
     }
@@ -16,25 +19,40 @@ class FileChunkTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return void
+     */
     public function testFileChunkSubtypeConstant(): void {
         $this->assertEquals('file_chunk', FileChunk::SUBTYPE);
     }
 
+    /**
+     * @return void
+     */
     public function testFileChunkExtendsElggFile(): void {
         $chunk = new FileChunk();
         $this->assertInstanceOf(\ElggFile::class, $chunk);
     }
 
+    /**
+     * @return void
+     */
     public function testFileChunkInitializedWithCorrectSubtype(): void {
         $chunk = new FileChunk();
         $this->assertEquals('file_chunk', $chunk->getSubtype());
     }
 
+    /**
+     * @return void
+     */
     public function testFileChunkClassMappedViaElggPlugin(): void {
         $class = elgg_get_entity_class('object', 'file_chunk');
         $this->assertEquals(FileChunk::class, $class);
     }
 
+    /**
+     * @return void
+     */
     public function testFileChunkPersists(): void {
         $user = $this->createUser();
         // Chunks are saved by the upload pipeline under ignore-access because
@@ -59,6 +77,9 @@ class FileChunkTest extends IntegrationTestCase {
         elgg_call(ELGG_IGNORE_ACCESS, fn() => $chunk->delete());
     }
 
+    /**
+     * @return void
+     */
     public function testFileChunkCanSetAndRetrieveFilename(): void {
         $user = $this->createUser();
         $chunk = new FileChunk();

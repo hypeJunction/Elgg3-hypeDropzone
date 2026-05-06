@@ -1,3 +1,15 @@
+<a name="8.0.0"></a>
+## 8.0.0 (2026-05-06)
+
+### Elgg 5.x migration
+
+* Migrated plugin to Elgg 5.x (from 4.x). Requires PHP >= 8.2.
+* `composer.json` updated to require `elgg/elgg: ^5.0` and `php: >=8.2`.
+* `elgg_trigger_plugin_hook()` replaced with `elgg_trigger_event_results()` in `DropzoneService`.
+* Plugin setting callsites changed to lowercase plugin id (`hypedropzone` instead of `hypeDropzone`).
+* PHPUnit integration tests adapted to 5.x: `elgg_get_session()->setLoggedInUser()` → `_elgg_services()->session_manager->setLoggedInUser()`, `\Elgg\Hook` → `\Elgg\Event`, hook registration/trigger functions updated to event equivalents.
+* Per-plugin Docker stack updated to Elgg 5.x (PHP 8.2-apache, MySQL 8.0).
+
 <a name="7.0.0"></a>
 ## 7.0.0 (2026-04-14)
 

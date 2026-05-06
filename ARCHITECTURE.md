@@ -1,4 +1,4 @@
-# hypedropzone — Architecture (Elgg 4.x)
+# hypedropzone — Architecture (Elgg 5.x)
 
 ## Summary
 

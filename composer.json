@@ -1,6 +1,6 @@
 {
 	"name": "hypejunction/hypedropzone",
-	"version": "7.0.0",
+	"version": "8.0.0",
 	"type": "elgg-plugin",
 	"description": "Drag-n-drop file uploads for Elgg",
 	"homepage": "http://hypejunction.com",
@@ -19,10 +19,10 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4",
+		"php": ">=8.2",
 		"composer/installers": "^2.0",
 		"npm-asset/dropzone": "<=5.4.0 || >5.5.0",
-		"elgg/elgg": "^4.0"
+		"elgg/elgg": "^5.0"
 	},
 	"autoload": {
 		"psr-4": {

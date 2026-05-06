@@ -10,6 +10,9 @@ use hypeJunction\DropzoneService;
  */
 class DropzoneServiceTest extends IntegrationTestCase {
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return 'hypedropzone';
     }
@@ -17,19 +20,28 @@ class DropzoneServiceTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return void
+     */
     public function testServiceCanBeInstantiated(): void {
         $svc = new DropzoneService();
         $this->assertInstanceOf(DropzoneService::class, $svc);
     }
 
+    /**
+     * @return void
+     */
     public function testServiceRegisteredInContainer(): void {
         $svc = elgg()->dropzone;
         $this->assertInstanceOf(DropzoneService::class, $svc);
     }
 
+    /**
+     * @return void
+     */
     public function testHandleUploadsWithEmptyRequestReturnsEmptyArray(): void {
         $user = $this->createUser();
-        elgg_get_session()->setLoggedInUser($user);
+        _elgg_services()->session_manager->setLoggedInUser($user);
 
         $svc = new DropzoneService();
 
@@ -41,27 +53,30 @@ class DropzoneServiceTest extends IntegrationTestCase {
         $this->assertIsArray($result);
         $this->assertEmpty($result);
 
-        elgg_get_session()->removeLoggedInUser();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testUploadAfterHookIsTriggered(): void {
         $user = $this->createUser();
-        elgg_get_session()->setLoggedInUser($user);
+        _elgg_services()->session_manager->setLoggedInUser($user);
 
         $called = false;
-        $handler = function (\Elgg\Hook $hook) use (&$called) {
+        $handler = function (\Elgg\Event $event) use (&$called) {
             $called = true;
-            return $hook->getValue();
+            return $event->getValue();
         };
-        elgg_register_plugin_hook_handler('upload:after', 'dropzone', $handler);
+        elgg_register_event_handler('upload:after', 'dropzone', $handler);
 
-        // Hook is only triggered when there are uploads. With no uploads, hook won't fire — that's
+        // Event is only triggered when there are uploads. With no uploads, event won't fire — that's
         // correct behavior; verify by triggering manually to ensure registration path works.
-        $value = elgg_trigger_plugin_hook('upload:after', 'dropzone', ['upload' => null], ['success' => true]);
+        $value = elgg_trigger_event_results('upload:after', 'dropzone', ['upload' => null], ['success' => true]);
         $this->assertTrue($called);
         $this->assertIsArray($value);
 
-        elgg_unregister_plugin_hook_handler('upload:after', 'dropzone', $handler);
-        elgg_get_session()->removeLoggedInUser();
+        elgg_unregister_event_handler('upload:after', 'dropzone', $handler);
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 }
