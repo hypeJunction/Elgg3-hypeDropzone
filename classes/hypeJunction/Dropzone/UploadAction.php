@@ -5,6 +5,9 @@ namespace hypeJunction\Dropzone;
 use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
 
+/**
+ * Action handler for single-shot (non-chunked) Dropzone uploads.
+ */
 class UploadAction {
 
 	/**

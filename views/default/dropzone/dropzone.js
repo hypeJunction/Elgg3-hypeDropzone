@@ -58,6 +58,7 @@ define(function (require) {
 					} else {
 						this.on('success', dz.success);
 					}
+
 					this.on('removedfile', dz.removedfile);
 				}
 			};
@@ -150,6 +151,7 @@ define(function (require) {
 				if (typeof parts['query'] !== 'undefined') {
 					args = elgg.parse_str(parts['query']);
 				}
+
 				var split = params.url.split('?');
 				base = split[0] + '?';
 			}
@@ -232,12 +234,15 @@ define(function (require) {
 					} else {
 						$(preview).addClass('elgg-dropzone-error').removeClass('elgg-dropzone-success');
 					}
+
 					if (filedata.html) {
 						$(preview).append($(filedata.html));
 					}
+
 					if (filedata.guid) {
 						$(preview).attr('data-guid', filedata.guid);
 					}
+
 					if (filedata.messages.length) {
 						$(preview).find('.elgg-dropzone-messages').html(filedata.messages.join('<br />'));
 					}

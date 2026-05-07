@@ -9,6 +9,9 @@ use Elgg\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Action handler that stores an individual upload chunk to disk.
+ */
 class ChunkUploadAction {
 
 	/**

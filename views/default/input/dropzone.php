@@ -16,13 +16,14 @@
 $uid = substr(md5(microtime() . rand()), 0, 10);
 $options['id'] = "dropzone-$uid";
 $fallback_input_id = "dropzone-fallback-$uid";
-$vars['id'] = $options['data-fallback-id'] = $fallback_input_id;
+$options['data-fallback-id'] = $fallback_input_id;
+$vars['id'] = $fallback_input_id;
 
 // Add dropzone class for JS initialization
 if (isset($vars['class'])) {
 	$options['class'] = "elgg-input-dropzone {$vars['class']}";
 } else {
-	$options['class'] = "elgg-input-dropzone";
+	$options['class'] = 'elgg-input-dropzone';
 }
 
 $vars['class'] = 'hidden';
@@ -109,12 +110,12 @@ $dropzone_attributes = _elgg_services()->html_formatter->formatAttributes($optio
 		'value' => $vars['name']
 	]);
 	?>
-    <div <?= $dropzone_attributes ?>>
+	<div <?= $dropzone_attributes ?>>
 		<span class="elgg-dropzone-instructions dz-default dz-message">
-            <?= $language['data-dict-default-message'] ?>
+			<?= $language['data-dict-default-message'] ?>
 		</span>
-    </div>
-    <div data-template><?= elgg_view('dropzone/template') ?></div>
+	</div>
+	<div data-template><?= elgg_view('dropzone/template') ?></div>
 </div>
 <?php
 $params = $vars;
