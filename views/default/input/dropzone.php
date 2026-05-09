@@ -122,4 +122,8 @@ unset($params['value']);
 
 echo elgg_view('input/file', $params);
 ?>
-<?php elgg_import_esm('dropzone/dropzone'); ?>
+<script>
+	require(['dropzone/dropzone'], function (dropzone) {
+		dropzone.init();
+	});
+</script>
