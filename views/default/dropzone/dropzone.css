@@ -1,3 +1,17 @@
+:root {
+	--dropzone-bg-even: #fff;
+	--dropzone-item-padding: 5px 10px;
+	--dropzone-font-size-filename: 12px;
+	--dropzone-font-size-small: 10px;
+	--dropzone-icon-size: 0.8rem;
+	--dropzone-icon-margin: 0 5px;
+	--dropzone-thumbnail-size: 30px;
+	--dropzone-size-col-width: 50px;
+	--dropzone-progress-initial-width: 90%;
+	--dropzone-progress-height: 4px;
+	--dropzone-upload-color: #4690D6;
+}
+
 @-webkit-keyframes dropzone-move {
 	0% {
 		background-position: 0 0;
@@ -55,7 +69,7 @@
 }
 
 .elgg-dropzone-preview:nth-child(even) {
-	background: #fff;
+	background: var(--dropzone-bg-even);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-item-props {
@@ -65,11 +79,11 @@
 }
 
 .elgg-dropzone-preview .elgg-dropzone-item-props > * {
-	padding: 5px 10px;
+	padding: var(--dropzone-item-padding);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-filename {
-	font-size: 12px;
+	font-size: var(--dropzone-font-size-filename);
 	text-align: left;
 	overflow: hidden;
 	flex-grow: 2;
@@ -81,31 +95,31 @@
 }
 
 .elgg-dropzone-preview .elgg-dropzone-size {
-	font-size: 10px;
+	font-size: var(--dropzone-font-size-small);
 	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
 	flex-grow: 0;
 	flex-shrink: 1;
-	flex-basis: 50px;
+	flex-basis: var(--dropzone-size-col-width);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-thumbnail {
 	text-align: center;
 	padding: 0;
-	max-height: 30px;
+	max-height: var(--dropzone-thumbnail-size);
 	overflow: hidden;
 	vertical-align: middle;
 	flex-grow: 0;
 	flex-shrink: 0;
-	flex-basis: 30px;
+	flex-basis: var(--dropzone-thumbnail-size);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-thumbnail img {
 	width: 100%;
 	height: auto;
-	max-width: 30px;
-	line-height: 30px;
+	max-width: var(--dropzone-thumbnail-size);
+	line-height: var(--dropzone-thumbnail-size);
 	display: inline-block;
 }
 
@@ -117,32 +131,32 @@
 
 .elgg-dropzone-preview .elgg-dropzone-success-icon {
 	display: none;
-	margin: 0 5px;
+	margin: var(--dropzone-icon-margin);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-success-icon .elgg-icon {
-	font-size: 0.8rem;
+	font-size: var(--dropzone-icon-size);
 	color: var(--elgg-state-success-font-color);
 	cursor: default;
 }
 
 .elgg-dropzone-preview .elgg-dropzone-error-icon {
 	display: none;
-	margin: 0 5px;
+	margin: var(--dropzone-icon-margin);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-error-icon .elgg-icon {
-	font-size: 0.8rem;
+	font-size: var(--dropzone-icon-size);
 	color: var(--elgg-state-error-font-color);
 	cursor: default;
 }
 
 .elgg-dropzone-preview .elgg-dropzone-remove-icon {
-	margin: 0 5px;
+	margin: var(--dropzone-icon-margin);
 }
 
 .elgg-dropzone-preview .elgg-dropzone-remove-icon .elgg-icon {
-	font-size: 0.8rem;
+	font-size: var(--dropzone-icon-size);
 	cursor: pointer;
 }
 
@@ -152,7 +166,7 @@
 }
 
 .elgg-dropzone-preview .elgg-dropzone-messages {
-	font-size: 10px;
+	font-size: var(--dropzone-font-size-small);
 	color: var(--elgg-state-error-font-color);
 }
 
@@ -194,14 +208,14 @@
 	position: absolute;
 	bottom: 1px;
 	left: 0;
-	width: 90%;
-	height: 4px;
-	border-bottom: 1px solid #fff;
+	width: var(--dropzone-progress-initial-width);
+	height: var(--dropzone-progress-height);
+	border-bottom: 1px solid var(--dropzone-bg-even);
 }
 
 .elgg-dropzone-upload {
 	position: absolute;
-	background-color: #4690D6;
+	background-color: var(--dropzone-upload-color);
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #4690D6), color-stop(1, #85b6e4));
 	background-image: -moz-linear-gradient(center bottom, #2bc253 37%, #54f054 69%);
 	overflow: hidden;
