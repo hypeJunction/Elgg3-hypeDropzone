@@ -22,7 +22,7 @@
         "php": ">=8.2",
         "composer/installers": "^2.0",
         "npm-asset/dropzone": "<=5.4.0 || >5.5.0",
-        "elgg/elgg": "^5.0"
+        "elgg/elgg": "~6.1.0"
     },
     "autoload": {
         "psr-4": {
