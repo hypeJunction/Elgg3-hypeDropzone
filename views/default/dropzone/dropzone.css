@@ -15,8 +15,8 @@
 .elgg-input-dropzone {
 	position: relative;
 	padding: 1px;
-	border: 1px solid $(border-color-soft);
-	border-radius: $(border-radius-input, 3px);
+	border: 1px solid var(--elgg-border-color-soft);
+	border-radius: var(--elgg-border-radius-input, 3px);
 }
 
 .elgg-dropzone-instructions {
@@ -33,7 +33,7 @@
 
 .elgg-dropzone-instructions strong, .elgg-dropzone-instructions span {
 	line-height: 1.5rem;
-	color: $(text-color-soft);
+	color: var(--elgg-text-color-soft);
 }
 
 .elgg-dropzone-preview {
@@ -47,11 +47,11 @@
 }
 
 .elgg-dropzone-instructions + .elgg-dropzone-preview {
-	border-top: 1px solid $(border-color-soft);
+	border-top: 1px solid var(--elgg-border-color-soft);
 }
 
 .elgg-dropzone-preview:nth-child(odd) {
-	background: $(background-color-soft);
+	background: var(--elgg-background-color-soft);
 }
 
 .elgg-dropzone-preview:nth-child(even) {
@@ -122,7 +122,7 @@
 
 .elgg-dropzone-preview .elgg-dropzone-success-icon .elgg-icon {
 	font-size: 0.8rem;
-	color: $(state-success-font-color);
+	color: var(--elgg-state-success-font-color);
 	cursor: default;
 }
 
@@ -133,7 +133,7 @@
 
 .elgg-dropzone-preview .elgg-dropzone-error-icon .elgg-icon {
 	font-size: 0.8rem;
-	color: $(state-error-font-color);
+	color: var(--elgg-state-error-font-color);
 	cursor: default;
 }
 
@@ -147,13 +147,13 @@
 }
 
 .elgg-dropzone-preview .elgg-dropzone-remove-icon .elgg-icon:hover {
-	color: $(state-error-font-color);
+	color: var(--elgg-state-error-font-color);
 	text-decoration: none;
 }
 
 .elgg-dropzone-preview .elgg-dropzone-messages {
 	font-size: 10px;
-	color: $(state-error-font-color);
+	color: var(--elgg-state-error-font-color);
 }
 
 .elgg-dropzone-preview.elgg-dropzone-success .elgg-dropzone-success-icon {
@@ -174,7 +174,7 @@
 }
 
 .elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-messages, .elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-filename {
-	color: $(state-error-font-color);
+	color: var(--elgg-state-error-font-color);
 }
 
 .elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-progress {
@@ -183,7 +183,7 @@
 }
 
 .elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-progress .elgg-dropzone-upload {
-	background: $(state-error-font-color);
+	background: var(--elgg-state-error-font-color);
 }
 
 .elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-progress .elgg-dropzone-upload:after {
