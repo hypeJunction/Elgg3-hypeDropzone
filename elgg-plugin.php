@@ -42,4 +42,14 @@ return [
 			'css/dropzone/stylesheet' => [],
 		],
 	],
+
+	'events' => [
+		'seeds' => [
+			'database' => [
+				[
+					'handler' => [\hypeJunction\Dropzone\Seeder::class, 'addSeed'],
+				],
+			],
+		],
+	],
 ];
