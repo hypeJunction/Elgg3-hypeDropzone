@@ -1,6 +1,6 @@
 Drag&Drop File Uploads for Elgg
 ===============================
-![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
+![Elgg 5.0](https://img.shields.io/badge/Elgg-5.0-orange.svg?style=flat-square)
 
 Drag&Drop File Uploads for Elgg
 

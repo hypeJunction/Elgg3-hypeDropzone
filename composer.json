@@ -3,7 +3,7 @@
 	"version": "8.0.0",
 	"type": "elgg-plugin",
 	"description": "Drag-n-drop file uploads for Elgg",
-	"homepage": "http://hypejunction.com",
+	"homepage": "https://github.com/hypeJunction/hypedropzone",
 	"keywords": [
 		"elgg",
 		"plugin",

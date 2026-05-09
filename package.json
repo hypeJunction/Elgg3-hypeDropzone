@@ -1,7 +1,7 @@
 {
 	"name": "hypeDropzone",
 	"version": "6.1.1",
-	"license": "SEE LICENSE IN https://hypejunction.com/license",
+	"license": "SEE LICENSE IN https://github.com/hypeJunction/hypedropzone",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:hypeJunction/hypeDropzone.git",
