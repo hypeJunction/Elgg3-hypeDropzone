@@ -14,11 +14,22 @@ use Elgg\Database\Seeds\Seed;
  */
 class Seeder extends Seed {
 
-	public function seed() {
+	public static function getType(): string {
+		return 'file_chunk';
+	}
+
+	public function getCountOptions(): array {
+		return [
+			'type' => 'object',
+			'subtype' => 'file_chunk',
+		];
+	}
+
+	public function seed(): void {
 		// file_chunk entities are created during upload assembly, not seeded directly.
 	}
 
-	public function unseed() {
+	public function unseed(): void {
 		// No seeded file_chunk entities to remove.
 	}
 
