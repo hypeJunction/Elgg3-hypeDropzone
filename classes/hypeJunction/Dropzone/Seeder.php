@@ -27,4 +27,22 @@ class Seeder extends Seed {
 		$seeds[] = self::class;
 		return $seeds;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function getType(): string {
+		return 'file_chunk';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getCountOptions(): array {
+		return [
+			'type' => 'object',
+			'subtype' => 'file_chunk',
+		];
+	}
+
 }
