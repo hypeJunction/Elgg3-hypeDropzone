@@ -46,9 +46,7 @@ return [
 	'events' => [
 		'seeds' => [
 			'database' => [
-				[
-					'handler' => [\hypeJunction\Dropzone\Seeder::class, 'addSeed'],
-				],
+				\hypeJunction\Dropzone\Seeder::class . '::addSeed' => [],
 			],
 		],
 	],
