@@ -14,10 +14,16 @@ use Elgg\Database\Seeds\Seed;
  */
 class Seeder extends Seed {
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public static function getType(): string {
 		return 'file_chunk';
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getCountOptions(): array {
 		return [
 			'type' => 'object',
@@ -25,14 +31,26 @@ class Seeder extends Seed {
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function seed(): void {
 		// file_chunk entities are created during upload assembly, not seeded directly.
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function unseed(): void {
 		// No seeded file_chunk entities to remove.
 	}
 
+	/**
+	 * Register this seeder with the seeds,database event.
+	 *
+	 * @param \Elgg\Event $event Event
+	 * @return array
+	 */
 	public static function addSeed(\Elgg\Event $event) {
 		$seeds = $event->getValue();
 		$seeds[] = self::class;
