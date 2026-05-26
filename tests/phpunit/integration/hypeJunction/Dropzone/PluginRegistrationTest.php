@@ -17,34 +17,34 @@ class PluginRegistrationTest extends IntegrationTestCase {
     public function down() {}
 
     public function testPluginIsActive(): void {
-        $plugin = elgg_get_plugin_from_id('hypedropzone');
+        $plugin = \elgg_get_plugin_from_id('hypedropzone');
         $this->assertNotNull($plugin);
         $this->assertTrue($plugin->isActive());
     }
 
     public function testFileChunkEntityRegistered(): void {
-        $class = elgg_get_entity_class('object', 'file_chunk');
+        $class = \elgg_get_entity_class('object', 'file_chunk');
         $this->assertEquals(FileChunk::class, $class);
     }
 
     public function testUploadActionRegistered(): void {
-        $actions = _elgg_services()->actions->getAllActions();
+        $actions = \_elgg_services()->actions->getAllActions();
         $this->assertArrayHasKey('dropzone/upload', $actions);
     }
 
     public function testChunkUploadActionRegistered(): void {
-        $actions = _elgg_services()->actions->getAllActions();
+        $actions = \_elgg_services()->actions->getAllActions();
         $this->assertArrayHasKey('dropzone/upload_chunk', $actions);
     }
 
     public function testChunkAssembleActionRegistered(): void {
-        $actions = _elgg_services()->actions->getAllActions();
+        $actions = \_elgg_services()->actions->getAllActions();
         $this->assertArrayHasKey('dropzone/assemble_chunks', $actions);
     }
 
     public function testChunkedUploadsSettingDefault(): void {
         // default setting from elgg-plugin.php is true
-        $value = elgg_get_plugin_setting('chunked_uploads', 'hypedropzone');
+        $value = \elgg_get_plugin_setting('chunked_uploads', 'hypedropzone');
         $this->assertNotNull($value);
     }
 
@@ -54,18 +54,18 @@ class PluginRegistrationTest extends IntegrationTestCase {
     }
 
     public function testDropzoneStylesheetViewExists(): void {
-        $this->assertTrue(elgg_view_exists('css/dropzone/stylesheet'));
+        $this->assertTrue(\elgg_view_exists('css/dropzone/stylesheet'));
     }
 
     public function testDropzoneLibJsViewExists(): void {
-        $this->assertTrue(elgg_view_exists('dropzone/lib.js'));
+        $this->assertTrue(\elgg_view_exists('dropzone/lib.js'));
     }
 
     public function testDropzoneTemplateViewExists(): void {
-        $this->assertTrue(elgg_view_exists('dropzone/template'));
+        $this->assertTrue(\elgg_view_exists('dropzone/template'));
     }
 
     public function testInputDropzoneViewExists(): void {
-        $this->assertTrue(elgg_view_exists('input/dropzone'));
+        $this->assertTrue(\elgg_view_exists('input/dropzone'));
     }
 }

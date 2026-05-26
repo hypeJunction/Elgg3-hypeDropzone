@@ -25,9 +25,9 @@ class ChunkAssembleAction
         $count = $request->getParam('chunk_count');
         $file_name = $request->getParam('file_name');
         $file_size = $request->getParam('file_size');
-        $user = elgg_get_logged_in_user_entity();
+        $user = \elgg_get_logged_in_user_entity();
         $subtype = $request->getParam('subtype', 'file');
-        $class = elgg_get_entity_class('object', $subtype);
+        $class = \elgg_get_entity_class('object', $subtype);
         if (!is_subclass_of($class, \ElggFile::class)) {
             $class = \ElggFile::class;
         }
@@ -45,7 +45,7 @@ class ChunkAssembleAction
         $file->upload_time = time();
         $prefix = $file->filestore_prefix ?: 'file';
         $prefix = trim($prefix, '/');
-        $filename = elgg_strtolower("{$prefix}/{$file->upload_time}{$file->originalfilename}");
+        $filename = \elgg_strtolower("{$prefix}/{$file->upload_time}{$file->originalfilename}");
         $file->setFilename($filename);
         $file->filestore_prefix = $prefix;
         $file->open('write');
@@ -60,7 +60,7 @@ class ChunkAssembleAction
         $dir = new \ElggFile();
         $dir->owner_guid = $user->guid;
         $dir->setFilename("chunks/{$uuid}");
-        _elgg_rmdir($dir->getFilenameOnFilestore());
+        \_elgg_rmdir($dir->getFilenameOnFilestore());
         $error = false;
         if (!$file->exists()) {
             $error = 'Could not write file';
@@ -71,15 +71,15 @@ class ChunkAssembleAction
             $file->delete();
             throw new HttpException($error, ELGG_HTTP_INTERNAL_SERVER_ERROR);
         }
-        $html = elgg_view('input/hidden', ['name' => $request->getParam('input_name', 'guids[]'), 'value' => $file->guid]);
+        $html = \elgg_view('input/hidden', ['name' => $request->getParam('input_name', 'guids[]'), 'value' => $file->guid]);
         $file_output = ['messages' => [], 'success' => true, 'guid' => $file->guid, 'html' => $html];
         $output = json_encode([$file_output]);
-        elgg_register_event_handler('shutdown', 'system', function () use ($file) {
+        \elgg_register_event_handler('shutdown', 'system', function () use ($file) {
             if ($this->hasMemoryToResize($file->getFilenameOnFilestore())) {
                 $file->saveIconFromElggFile($file);
             }
         });
-        return elgg_ok_response($output);
+        return \elgg_ok_response($output);
     }
     /**
      * Do we estimate that we have enough memory available to resize an image?
@@ -95,7 +95,7 @@ class ChunkAssembleAction
         $requiredMemory1 = ceil($imginfo[0] * $imginfo[1] * 5.35);
         $requiredMemory2 = ceil($imginfo[0] * $imginfo[1] * ($imginfo['bits'] / 8) * $imginfo['channels'] * 2.5);
         $requiredMemory = (int) max($requiredMemory1, $requiredMemory2);
-        $mem_avail = elgg_get_ini_setting_in_bytes('memory_limit');
+        $mem_avail = \elgg_get_ini_setting_in_bytes('memory_limit');
         $mem_used = memory_get_usage();
         $mem_avail = $mem_avail - $mem_used - 20 * 1024 * 1024;
         return $mem_avail > $requiredMemory;

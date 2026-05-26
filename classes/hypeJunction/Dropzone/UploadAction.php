@@ -21,10 +21,10 @@ class UploadAction {
 		$result = $svc->handleUploads($request);
 
 		$output = '';
-		if (elgg_is_xhr()) {
+		if (\elgg_is_xhr()) {
 			$output = json_encode($result);
 		}
 
-		return elgg_ok_response($output);
+		return \elgg_ok_response($output);
 	}
 }

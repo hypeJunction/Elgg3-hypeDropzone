@@ -31,7 +31,7 @@ class FileChunkTest extends IntegrationTestCase {
     }
 
     public function testFileChunkClassMappedViaElggPlugin(): void {
-        $class = elgg_get_entity_class('object', 'file_chunk');
+        $class = \elgg_get_entity_class('object', 'file_chunk');
         $this->assertEquals(FileChunk::class, $class);
     }
 
@@ -40,7 +40,7 @@ class FileChunkTest extends IntegrationTestCase {
         // Chunks are saved by the upload pipeline under ignore-access because
         // the receiving side may not have the same auth context as the owner.
         // The test mirrors that.
-        $chunk = elgg_call(ELGG_IGNORE_ACCESS, function () use ($user) {
+        $chunk = \elgg_call(ELGG_IGNORE_ACCESS, function () use ($user) {
             $c = new FileChunk();
             $c->owner_guid = $user->guid;
             $c->container_guid = $user->guid;
@@ -52,11 +52,11 @@ class FileChunkTest extends IntegrationTestCase {
             return $c;
         });
 
-        $loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($chunk->guid));
+        $loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($chunk->guid));
         $this->assertInstanceOf(FileChunk::class, $loaded);
         $this->assertEquals('file_chunk', $loaded->getSubtype());
 
-        elgg_call(ELGG_IGNORE_ACCESS, fn() => $chunk->delete());
+        \elgg_call(ELGG_IGNORE_ACCESS, fn() => $chunk->delete());
     }
 
     public function testFileChunkCanSetAndRetrieveFilename(): void {
