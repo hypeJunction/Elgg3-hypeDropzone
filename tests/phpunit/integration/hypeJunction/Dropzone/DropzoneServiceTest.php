@@ -41,7 +41,7 @@ class DropzoneServiceTest extends IntegrationTestCase {
      */
     public function testHandleUploadsWithEmptyRequestReturnsEmptyArray(): void {
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
 
         $svc = new DropzoneService();
 
@@ -53,7 +53,7 @@ class DropzoneServiceTest extends IntegrationTestCase {
         $this->assertIsArray($result);
         $this->assertEmpty($result);
 
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -61,22 +61,22 @@ class DropzoneServiceTest extends IntegrationTestCase {
      */
     public function testUploadAfterHookIsTriggered(): void {
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
 
         $called = false;
         $handler = function (\Elgg\Event $event) use (&$called) {
             $called = true;
             return $event->getValue();
         };
-        elgg_register_event_handler('upload:after', 'dropzone', $handler);
+        \elgg_register_event_handler('upload:after', 'dropzone', $handler);
 
         // Event is only triggered when there are uploads. With no uploads, event won't fire — that's
         // correct behavior; verify by triggering manually to ensure registration path works.
-        $value = elgg_trigger_event_results('upload:after', 'dropzone', ['upload' => null], ['success' => true]);
+        $value = \elgg_trigger_event_results('upload:after', 'dropzone', ['upload' => null], ['success' => true]);
         $this->assertTrue($called);
         $this->assertIsArray($value);
 
-        elgg_unregister_event_handler('upload:after', 'dropzone', $handler);
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \elgg_unregister_event_handler('upload:after', 'dropzone', $handler);
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 }

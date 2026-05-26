@@ -23,7 +23,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputRendersDefaults(): void {
-        $output = elgg_view('input/dropzone', []);
+        $output = \elgg_view('input/dropzone', []);
         $this->assertIsString($output);
         $this->assertNotEmpty($output);
         $this->assertStringContainsString('elgg-dropzone', $output);
@@ -34,7 +34,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputRendersWithContainerGuid(): void {
-        $output = elgg_view('input/dropzone', ['container_guid' => 42]);
+        $output = \elgg_view('input/dropzone', ['container_guid' => 42]);
         $this->assertStringContainsString('data-container-guid="42"', $output);
     }
 
@@ -42,7 +42,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputRendersWithSubtype(): void {
-        $output = elgg_view('input/dropzone', ['subtype' => 'file']);
+        $output = \elgg_view('input/dropzone', ['subtype' => 'file']);
         $this->assertStringContainsString('data-subtype="file"', $output);
     }
 
@@ -50,7 +50,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputRendersWithMaxFiles(): void {
-        $output = elgg_view('input/dropzone', ['max' => 5]);
+        $output = \elgg_view('input/dropzone', ['max' => 5]);
         $this->assertStringContainsString('data-max-files="5"', $output);
     }
 
@@ -58,7 +58,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputRendersWithAcceptedTypes(): void {
-        $output = elgg_view('input/dropzone', ['accept' => 'image/*']);
+        $output = \elgg_view('input/dropzone', ['accept' => 'image/*']);
         $this->assertStringContainsString('data-accepted-files="image/*"', $output);
     }
 
@@ -66,7 +66,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputMultipleAppendsBracketsToName(): void {
-        $output = elgg_view('input/dropzone', ['multiple' => true, 'name' => 'my_files']);
+        $output = \elgg_view('input/dropzone', ['multiple' => true, 'name' => 'my_files']);
         $this->assertStringContainsString('data-name="my_files[]"', $output);
     }
 
@@ -74,7 +74,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputDefaultNameIsFileGuids(): void {
-        $output = elgg_view('input/dropzone', []);
+        $output = \elgg_view('input/dropzone', []);
         $this->assertStringContainsString('data-name="file_guids"', $output);
     }
 
@@ -82,7 +82,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneTemplateRenders(): void {
-        $output = elgg_view('dropzone/template');
+        $output = \elgg_view('dropzone/template');
         $this->assertIsString($output);
         $this->assertStringContainsString('elgg-dropzone-preview', $output);
         $this->assertStringContainsString('data-dz-thumbnail', $output);
@@ -94,7 +94,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputIncludesFallbackHiddenField(): void {
-        $output = elgg_view('input/dropzone', []);
+        $output = \elgg_view('input/dropzone', []);
         $this->assertStringContainsString('dropzone_fields[]', $output);
     }
 
@@ -102,7 +102,7 @@ class InputDropzoneViewTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneInputRendersCustomQuery(): void {
-        $output = elgg_view('input/dropzone', ['query' => ['foo' => 'bar']]);
+        $output = \elgg_view('input/dropzone', ['query' => ['foo' => 'bar']]);
         $this->assertStringContainsString('data-query', $output);
         $this->assertStringContainsString('foo', $output);
     }

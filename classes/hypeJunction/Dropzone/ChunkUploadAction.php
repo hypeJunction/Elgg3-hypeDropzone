@@ -28,10 +28,10 @@ class ChunkUploadAction {
 		$uuid = $request->getParam('uuid');
 		$chunk_size = $request->getParam('chunk_size');
 
-		$user = elgg_get_logged_in_user_entity();
+		$user = \elgg_get_logged_in_user_entity();
 
 		try {
-			$uploads = elgg_get_uploaded_files('dropzone');
+			$uploads = \elgg_get_uploaded_files('dropzone');
 			if (empty($uploads)) {
 				throw new BadRequestException('Uploads are empty');
 			}
@@ -43,7 +43,7 @@ class ChunkUploadAction {
 			}
 
 			if (!$upload->isValid()) {
-				throw new BadRequestException(elgg_get_friendly_upload_error($upload->getError()));
+				throw new BadRequestException(\elgg_get_friendly_upload_error($upload->getError()));
 			}
 
 			if ($upload->getClientSize() != $chunk_size) {
@@ -64,10 +64,10 @@ class ChunkUploadAction {
 				throw new HttpException($ex->getMessage(), ELGG_HTTP_INTERNAL_SERVER_ERROR);
 			}
 		} catch (HttpException $ex) {
-			return elgg_error_response($ex->getMessage(), REFERRER, $ex->getCode());
+			return \elgg_error_response($ex->getMessage(), REFERRER, $ex->getCode());
 		}
 
-		return elgg_ok_response([
+		return \elgg_ok_response([
 			'chunk' => $chunk,
 			'size' => $chunk->getSize(),
 		]);
