@@ -66,7 +66,7 @@ class ChunkAssembleAction {
 		$dir = new \ElggFile();
 		$dir->owner_guid = $user->guid;
 		$dir->setFilename("chunks/{$uuid}");
-		\_elgg_rmdir($dir->getFilenameOnFilestore());
+		\elgg_delete_directory($dir->getFilenameOnFilestore());
 		$error = false;
 		if (!$file->exists()) {
 			$error = 'Could not write file';
