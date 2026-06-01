@@ -72,7 +72,7 @@ class ChunkAssembleAction {
 		$dir->owner_guid = $user->guid;
 		$dir->setFilename("chunks/$uuid");
 
-		_elgg_rmdir($dir->getFilenameOnFilestore());
+		elgg_delete_directory($dir->getFilenameOnFilestore());
 
 		$error = false;
 		if (!$file->exists()) {
