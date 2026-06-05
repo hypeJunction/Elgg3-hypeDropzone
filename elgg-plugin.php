@@ -30,7 +30,7 @@ return [
 	],
 	'views' => [
 		'default' => [
-			'dropzone/lib.js' => __DIR__ . '/vendor/npm-asset/dropzone/dist/min/dropzone-amd-module.min.js',
+			'dropzone/lib.js' => __DIR__ . '/vendors/dropzone/dropzone-amd-module.min.js',
 			'css/dropzone/stylesheet' => __DIR__ . '/views/default/dropzone/dropzone.css',
 		],
 	],
