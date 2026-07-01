@@ -88,7 +88,7 @@ class PluginRegistrationTest extends IntegrationTestCase {
      * @return void
      */
     public function testDropzoneLibJsViewExists(): void {
-        $this->assertTrue(elgg_view_exists('dropzone/lib.js'));
+        $this->assertTrue(elgg_view_exists('dropzone/lib.mjs'));
     }
 
     /**
