@@ -1,4 +1,5 @@
 import elgg from 'elgg';
+import hooks from 'elgg/hooks';
 import $ from 'jquery';
 import Ajax from 'elgg/Ajax';
 import 'dropzone/lib';
@@ -25,13 +26,17 @@ var dz = {
 	},
 	/**
 	 * Configuration parameters of the dropzone instance
-	 * @param {Object} event
+	 *
+	 * Elgg 7 hook handler: called positionally as (name, type, params, value).
+	 * @param {String} name  Hook name
+	 * @param {String} type  Hook type
+	 * @param {Object} params Hook params ({dropzone: $input})
+	 * @param {Object} value  Initial config value ($input.data())
 	 * @returns {Object}
 	 */
-	config: function (event) {
+	config: function (name, type, params, value) {
 
-		var params = event.getParam('params');
-		var config = event.getValue();
+		var config = value;
 
 		var defaults = {
 			method: 'POST',
@@ -125,7 +130,7 @@ var dz = {
 			return;
 		}
 
-		var params = elgg.trigger_hook('config', 'dropzone', {dropzone: $input}, $input.data());
+		var params = hooks.trigger('config', 'dropzone', {dropzone: $input}, $input.data());
 
 		var query = $input.data('query') || {};
 
@@ -248,7 +253,7 @@ var dz = {
 				$(preview).find('.elgg-dropzone-messages').html(elgg.echo('dropzone:server_side_error'));
 			}
 
-			elgg.trigger_hook('upload:success', 'dropzone', {file: file, data: data});
+			hooks.trigger('upload:success', 'dropzone', {file: file, data: data});
 		});
 	},
 	/**
@@ -271,7 +276,7 @@ var dz = {
 	}
 };
 
-elgg.register_hook_handler('config', 'dropzone', dz.config);
+hooks.register('config', 'dropzone', dz.config);
 
 dz.init();
 
