@@ -2,6 +2,7 @@ import elgg from 'elgg';
 import hooks from 'elgg/hooks';
 import $ from 'jquery';
 import Ajax from 'elgg/Ajax';
+import security from 'elgg/security';
 import 'dropzone/lib';
 
 var dz = {
@@ -68,7 +69,10 @@ var dz = {
 		config = $.extend(true, defaults, config);
 
 		if (!config.url) {
-			config.url = elgg.security.addToken(elgg.get_site_url() + 'action/dropzone/upload_chunk');
+			// Elgg 7 does not hang `security` off the global `elgg` object; it is its own
+			// ES module. elgg.security.addToken was a TypeError on every page with a
+			// dropzone input (message compose, file upload).
+			config.url = security.addToken(elgg.get_site_url() + 'action/dropzone/upload_chunk');
 			config.chunking = true;
 			config.forceChunking = true;
 			config.parallelChunkUploads = true;
